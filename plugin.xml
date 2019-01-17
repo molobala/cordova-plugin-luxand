@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-luxand" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-plugin-luxand</name>
+    <js-module name="Luxand" src="www/luxand.js">
+        <clobbers target="Luxand" />
+    </js-module>
+    <platform name="android">
+        <framework src="src/android/LuxandGradle.gradle" custom="true" type="gradleReference" />
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="Luxand">
+                <param name="android-package" value="com.luxand.dsi.Luxand" />
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-feature android:name="android.hardware.camera.autofocus" />
+            <uses-feature android:name="android.hardware.camera" android:required="true"/>
+        </config-file>
+         <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="com.luxand.dsi.OMLLuxand" android:launchMode="singleTop"/>
+        </config-file>
+-        <source-file src="src/android/FSDK.java" target-dir="src/com/luxand" />
+        <source-file src="src/android/Constants.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/FaceRectangle.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/Preview.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/ProcessImageAndDrawResults.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/OMLLuxand.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/Luxand.java" target-dir="src/com/luxand/dsi" />
+        <source-file src="src/android/OnImageProcessListener.java" target-dir="src/com/luxand/dsi" />
+
+        <resource-file src="armeabi-v7a-libfsdk.so" target="jniLibs/armeabi-v7a/libfsdk.so" />
+        <resource-file src="x86-libfsdk.so" target="jniLibs/x86/libfsdk.so" />
+        <resource-file src="arm64-v8a-libfsdk.so" target="jniLibs/arm64-v8a/libfsdk.so" />
+        <resource-file src="src/android/layout/bottom_menu.xml" target="res/layout/bottom_menu.xml" />
+        <resource-file src="src/android/layout/main.xml" target="res/layout/main.xml" />
+        <!-- <resource-file src="src/android/values/colors.xml" target="res/values/colors.xml" />
+        <resource-file src="src/android/values/strings.xml" target="res/values/strings.xml" />
+        <resource-file src="src/android/values/styles.xml" target="res/values/styles.xml" /> -->
+        <hook src="scripts/process_copy_android_sdk.js" type="before_plugin_install" />
+    </platform>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Luxand">
+                <param name="ios-package" value="Luxand"/>
+            </feature>
+        </config-file>
+        <!-- <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+            <string>${PRODUCT_NAME} requires access to your phone’s camera.</string>
+        </edit-config> -->
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+             <string>${PRODUCT_NAME} requires access to your phone’s camera.</string>
+        </config-file>
+        <source-file src="libfsdk-static.a" framework="true" />
+        <source-file src="libfsdk-static_64.a" framework="true" />
+        <header-file src="src/ios/LuxandFaceSDK.h"/>
+        <source-file src="src/ios/Luxand.mm"/>
+        <header-file src="src/ios/Luxand.h"/>
+        
+        <header-file src="src/ios/RecognitionCamera.h"/>
+        <source-file src="src/ios/RecognitionCamera.m"/>
+
+        <header-file src="src/ios/RecognitionGLView.h"/>
+        <source-file src="src/ios/RecognitionGLView.m"/>
+
+        <header-file src="src/ios/RecognitionViewController.h"/>
+        <source-file src="src/ios/RecognitionViewController.mm"/>
+
+        <resource-file src="src/ios/DirectDisplayShader.vsh" />
+        <resource-file src="src/ios/DirectDisplayShader.fsh" />
+        <hook src="scripts/process_copy_ios_sdk.js" type="before_plugin_install"/>
+        <!-- frameworks -->
+        <!-- <framework src="AVFoundation.framework" /> -->
+    </platform>
+    
+</plugin>
