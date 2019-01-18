@@ -98,7 +98,7 @@ Luxand.clear(id,(r)=>{}, err=>{});
 
 The MIT License
 
-Copyright (c) 2017 Felipe Echanique Torres (felipe.echanique in the gmail.com)
+Copyright (c) 2017 DOUMBIA Mahamadou (doumbiamahamadou.ensate in gmail)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
